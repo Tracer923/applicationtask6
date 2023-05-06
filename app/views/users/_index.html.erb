@@ -11,27 +11,19 @@
       <tr>
         <td><%= image_tag user.get_profile_image(50,50) %></td>
         <td><%= user.name %></td>
-
-
         <td>
-          フォロー数：<%= @user.followings.count %>
-          <% @user.followings.each do |u| %>
-            <p><a href="/users/<%= u.id %>"><%= u.name %>さん</a></p>
-          <% end %>
+          フォロー数：<%= user.followings.count %>
         </td>
         <td>
-          フォロワー数：<%= @user.followers.count %></h2>
-          <% @user.followers.each do |u| %>
-            <p><a href="/users/<%= u.id %>"><%= u.name %>さん</a></p>
-          <% end %>
+          フォロワー数：<%= user.followers.count %>
         </td>
-
-
         <td>
-          <% if current_user.following?(@user) %>
-            <%= link_to "フォロー外す", user_relationships_path(@user.id), method: :delete %>
-          <% else %>
-            <%= link_to "フォローする", user_relationships_path(@user.id), method: :post %>
+          <% if current_user != user %>
+            <% if current_user.following?(user) %>
+              <%= link_to "フォロー外す", user_relationships_path(user.id), method: :delete %>
+            <% else %>
+              <%= link_to "フォローする", user_relationships_path(user.id), method: :post %>
+            <% end %>
           <% end %>
         </td>
         <td><%= link_to 'Show', user %></td>
