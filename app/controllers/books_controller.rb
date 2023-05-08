@@ -5,6 +5,8 @@ class BooksController < ApplicationController
     @books = Book.all
     @book = Book.find(params[:id])
     @user = @book.user
+    @book_comment = BookComment.new
+    # @book_comments = @book.comments.page(params[:page]).per(7).reverse_order
   end
 
   def index
@@ -47,7 +49,7 @@ class BooksController < ApplicationController
   private
 
   def book_params
-    params.require(:book).permit(:title, :body, :user_id)
+    params.require(:book).permit(:title, :body )
   end
 
   def is_matching_login_user
